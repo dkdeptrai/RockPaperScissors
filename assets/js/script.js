@@ -1,5 +1,3 @@
-console.log('Hello World');
-
 function computerPlay() {
     const options = ['Rock', 'Paper', "Scissors"];
     let ran = Math.floor(Math.random() * 3);
@@ -15,57 +13,63 @@ function standardize(str) {
 }
 
 function playRound(player, computer) {
-    loseResult = `You lose! Computer: ${computer} beats Player: ${player} !`;
-    winResult = `You win! Player: ${player} beats Computer: ${computer} !`;
+    loseResult = `You lose! Computer's ${computer} beats your ${player} !`;
+    winResult = `You win! Your ${player} beats Computer's ${computer} !`;
     if(player===computer) {
-        return `Draw! Player: ${player} and Computer: ${computer} are equal!`;
+        return resPanel.textContent = `Draw! Both you and Computer choose ${player}!`;
     } else if(player === 'Rock') {
         if(computer === 'Paper') {
-            return loseResult;
+            return resPanel.textContent = loseResult;
         } else {
-            return winResult;
+            return resPanel.textContent = winResult;
         }
     } else if(player === 'Paper') {
         if(computer === 'Scissors') {
-            return loseResult;
+            return resPanel.textContent = loseResult;
         } else {
-            return winResult;
+            return resPanel.textContent = winResult;
         }
     } else if(player === 'Scissors') {
         if(computer === 'Rocks') {
-            return loseResult;
+            return resPanel.textContent = loseResult;
         } else {
-            return winResult;
+            return resPanel.textContent = winResult;
         }
-    } else {
-        return 'Invalid choice'
     }
 }
 
-function game() {
-    let playerScore = 0;
-    let computerScore = 0;
-    for (let i = 0; i < 5; i++) {
-        player = prompt('Choose Rock, Paper or Scissors', '');
-        player = standardize(player);
-        computer = computerPlay();
-        let result = playRound(player,computer);
-        console.log(result);
-        if(result.includes('lose')) {
-            computerScore++;
-        } else if( result.includes('win')) {
-            playerScore++;
-        }   
+function updateScore(result) {
+    if(result.includes('lose')) {
+        cScore++;
+    } else if( result.includes('win')) {
+        pScore++;
     }
-
-    console.log(`Result: Player ${playerScore} | Computer: ${computerScore}`);
-    if(playerScore > computerScore) {
-        console.log('Congratulations, you won');
-    } else if (playerScore < computerScore) {
-        console.log('You lose! Gook luck next time!');
-    } else {
-        console.log('Draw');
-    }
+    playerScore.textContent = pScore;
+    computerScore.textContent = cScore;
 }
 
-game();
+function gameEndCheck() {
+    if(pScore === 5) return resPanel.textContent = 'You win! Congratulations';
+    if(cScore === 5) return resPanel.textContent = 'You lose! Better luck next time!';
+}
+
+const resPanel = document.querySelector('.result');
+const playerScore = document.querySelector('#player');
+const computerScore = document.querySelector('#computer');
+let pScore = 0;
+let cScore = 0;
+
+const btns = document.querySelectorAll('.choice');
+btns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+        let result = playRound(btn.textContent, computerPlay());
+        updateScore(result);
+        if(gameEndCheck()) {
+            pScore = cScore = 0;
+        }
+    })
+});
+
+
+
+

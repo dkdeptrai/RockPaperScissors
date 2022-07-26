@@ -1,0 +1,36 @@
+* {
+   box-sizing: border-box; 
+}
+
+.buttons {
+    background-color: aqua;
+    
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.choice {
+    height: auto;
+    width: 33.333333%;
+    text-align: center;
+    padding: 44px;
+    border-top: 4px solid red;
+    border-bottom: 4px solid red;
+    border-left: 2px solid red;
+    border-right: 2px solid red;
+}
+.result {
+    margin: 48px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.scores {
+    margin: 48px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
